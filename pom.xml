@@ -46,6 +46,7 @@
 	<modules>
 		<module>javapayload</module>
 		<module>meterpreter</module>
+		<module>androidmeterpreter</module>
 		<module>version-compatibility-check</module>
 	</modules>
 	<profiles>

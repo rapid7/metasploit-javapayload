@@ -14,7 +14,7 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<version>1.6_r2</version>
+			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -55,6 +55,7 @@
 					<sdk>
 						<!-- platform or api level (api level 4 = platform 1.6)-->
 						<platform>3</platform>
+						<!-- was 3 -->
 					</sdk>
 				</configuration>
 			</plugin>
@@ -92,7 +93,7 @@
 											</fileset>
 											<zipfileset src="${com.metasploit:Metasploit-JavaPayload:jar}" includes="javapayload/stage/StreamForwarder.class" />
 										</copy>
-										<exec executable="${android.sdk.path}/platform-tools/${dx.filename}" failonerror="true">
+										<exec executable="${android.sdk.path}/build-tools/17.0.0/${dx.filename}" failonerror="true">
 											<arg value="--verbose" />
 											<arg value="--dex" />
 											<arg value="--output=${project.basedir}/../../${deploy.path}/data/android/shell.jar" />
@@ -107,7 +108,7 @@
 												<include name="androidpayload/stage/Stage.class" />
 											</fileset>
 										</copy>
-										<exec executable="${android.sdk.path}/platform-tools/${dx.filename}" failonerror="true">
+										<exec executable="${android.sdk.path}/build-tools/17.0.0/${dx.filename}" failonerror="true">
 											<arg value="--verbose" />
 											<arg value="--dex" />
 											<arg value="--output=${project.basedir}/../../${deploy.path}/data/android/metstage.jar" />
@@ -119,7 +120,7 @@
 										<copy todir="${project.basedir}/target/dx/meterpreter">
 											<fileset dir="${project.basedir}/target/classes" includes="com/metasploit/meterpreter/**/*.class" />
 										</copy>
-										<exec executable="${android.sdk.path}/platform-tools/${dx.filename}" failonerror="true">
+										<exec executable="${android.sdk.path}/build-tools/17.0.0/${dx.filename}" failonerror="true">
 											<arg value="--verbose" />
 											<arg value="--dex" />
 											<arg value="--output=${project.basedir}/../../${deploy.path}/data/android/meterpreter.jar" />

