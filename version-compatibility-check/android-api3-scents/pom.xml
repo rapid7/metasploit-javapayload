@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.metasploit</groupId>
 	<artifactId>android-api3-scents</artifactId>
-	<version>1.5_r4</version>
+	<version>4.1.1.4</version>
 	<packaging>pom</packaging>
 	<build>
 		<plugins>
@@ -52,7 +52,7 @@
 						</executions>
 						<configuration>
 							<javaHomeClassPath>
-								<javaHomeClassPath>${android.sdk.path}/platforms/android-3/android.jar</javaHomeClassPath>
+								<javaHomeClassPath>${android.sdk.path}/platforms/android-16/android.jar</javaHomeClassPath>
 							</javaHomeClassPath>
 						</configuration>
 					</plugin>

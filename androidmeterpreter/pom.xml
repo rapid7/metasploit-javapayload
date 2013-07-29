@@ -2,14 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.metasploit</groupId>
-	<artifactId>Metasploit-Java-Meterpreter-stdapi</artifactId>
+	<artifactId>Metasploit-Android-Meterpreter-common</artifactId>
 	<parent>
 		<groupId>com.metasploit</groupId>
-		<artifactId>Metasploit-Java-Meterpreter-parent</artifactId>
+		<artifactId>Metasploit-JavaPayload-parent</artifactId>
 		<version>1-SNAPSHOT</version>
 	</parent>
 	<packaging>jar</packaging>
-	<name>Java Meterpreter StdApi Plugin</name>
+	<name>Android Meterpreter Common Plugins</name>
 	<url>http://www.metasploit.com/</url>
 	<dependencies>
 		<dependency>
@@ -24,7 +24,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>ext_server_stdapi</finalName>
+		<finalName>ext_server_android</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -33,7 +33,8 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Extension-Loader>com.metasploit.meterpreter.stdapi.Loader</Extension-Loader>
+							<Extension-Loader>com.metasploit.meterpreter.android.Loader</Extension-Loader>
+							<!-- <Extension-Loader>com.metasploit.meterpreter.stdapi.Loader</Extension-Loader> -->
 						</manifestEntries>
 					</archive>
 				</configuration>
