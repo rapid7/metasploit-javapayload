@@ -59,7 +59,7 @@
 								</goals>
 								<configuration>
 									<target>
-										<unzip src="${project.basedir}/target/${project.build.finalName}.apk" dest="${project.basedir}/../../../../../data/android/apk" >
+										<unzip src="${project.basedir}/target/${project.build.finalName}.apk" dest="${project.basedir}/../../${deploy.path}/data/android/apk" >
 											<patternset>
 												<exclude name="META-INF/**"/>
 											</patternset>

