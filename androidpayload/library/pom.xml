@@ -2,16 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.metasploit</groupId>
-	<artifactId>Metasploit-</artifactId>
+	<artifactId>Android-Payload-Library</artifactId>
 	<version>1-SNAPSHOT</version>
 	<packaging>apk</packaging>
-	<name>Android Meterpreter</name>
+	<name>Android Payload Library</name>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<version>1.6_r2</version>
+			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -89,7 +89,7 @@
 											</fileset>
 											<zipfileset src="${com.metasploit:Metasploit-JavaPayload:jar}" includes="javapayload/stage/StreamForwarder.class" />
 										</copy>
-										<exec executable="${android.sdk.path}/platform-tools/${dx.filename}" failonerror="true">
+										<exec executable="${android.sdk.path}/build-tools/17.0.0/${dx.filename}" failonerror="true">
 											<arg value="--verbose" />
 											<arg value="--dex" />
 											<arg value="--output=${project.basedir}/../../../../../data/android/shell.jar" />
@@ -104,7 +104,7 @@
 												<include name="androidpayload/stage/Stage.class" />
 											</fileset>
 										</copy>
-										<exec executable="${android.sdk.path}/platform-tools/${dx.filename}" failonerror="true">
+										<exec executable="${android.sdk.path}/build-tools/17.0.0/${dx.filename}" failonerror="true">
 											<arg value="--verbose" />
 											<arg value="--dex" />
 											<arg value="--output=${project.basedir}/../../../../../data/android/metstage.jar" />
@@ -116,7 +116,7 @@
 										<copy todir="${project.basedir}/target/dx/meterpreter">
 											<fileset dir="${project.basedir}/target/classes" includes="com/metasploit/meterpreter/**/*.class" />
 										</copy>
-										<exec executable="${android.sdk.path}/platform-tools/${dx.filename}" failonerror="true">
+										<exec executable="${android.sdk.path}/build-tools/17.0.0/${dx.filename}" failonerror="true">
 											<arg value="--verbose" />
 											<arg value="--dex" />
 											<arg value="--output=${project.basedir}/../../../../../data/android/meterpreter.jar" />
