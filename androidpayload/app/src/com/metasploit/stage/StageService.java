@@ -72,7 +72,7 @@ public class StageService extends Service {
             msgsock = new Socket(lhost, Integer.parseInt(lport));
             DataInputStream in = new DataInputStream(msgsock.getInputStream());
             OutputStream out = new DataOutputStream(msgsock.getOutputStream());
-            new LoadStage().start(in, out, this, new String[] {});
+            new LoadStage().start(in, out, getApplicationContext(), new String[] {});
             msgsock.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class StageService extends Service {
     	try {
 			msgsock.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
     	Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();
