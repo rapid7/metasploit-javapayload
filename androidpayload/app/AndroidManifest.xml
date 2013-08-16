@@ -31,16 +31,6 @@
         android:name=".MyApp"
         android:icon="@drawable/icon"
         android:label="@string/app_name" >
-        <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTask"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         
         <receiver android:name=".MyBroadcastReceiver">  
     		<intent-filter>  
@@ -49,9 +39,13 @@
 		</receiver>
 		<service
             android:launchMode="singleInstance"
+            android:label="@string/app_name" 
             android:name=".StageService"
-            android:enabled="true"
-            android:exported="true" >
+            android:enabled="true">
+			<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </service>
     </application>
 

