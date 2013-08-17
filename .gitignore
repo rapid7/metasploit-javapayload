@@ -12,3 +12,6 @@
 *.orig
 *.rej
 *~
+
+.metadata
+*/*/gen

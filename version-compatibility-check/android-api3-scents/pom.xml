@@ -52,7 +52,7 @@
 						</executions>
 						<configuration>
 							<javaHomeClassPath>
-								<javaHomeClassPath>${android.sdk.path}/platforms/android-3/android.jar</javaHomeClassPath>
+								<javaHomeClassPath>${android.sdk.path}/platforms/android-16/android.jar</javaHomeClassPath>
 							</javaHomeClassPath>
 						</configuration>
 					</plugin>
