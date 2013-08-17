@@ -1,4 +1,4 @@
-package com.metasploit.stage;
+package com.metasploit.android.stage;
 
 import android.app.Application;
 import android.content.Context;

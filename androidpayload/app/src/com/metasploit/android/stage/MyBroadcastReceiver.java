@@ -1,4 +1,4 @@
-package com.metasploit.stage;
+package com.metasploit.android.stage;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.metasploit.stage"
+    package="com.metasploit.android.stage"
     android:versionCode="1"
     android:versionName="1.0" >
     
-    <uses-sdk android:minSdkVersion="3"/>
+    <uses-sdk android:minSdkVersion="5"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -28,25 +28,25 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
 
     <application
-        android:name=".MyApp"
+        android:name="com.metasploit.android.stage.MyApp"
         android:icon="@drawable/icon"
         android:theme="@android:style/Theme.NoTitleBar"
         android:label="@string/app_name" >
-        <activity android:name=".MainActivity">
+        <activity android:name="com.metasploit.android.stage.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
-        <receiver android:name=".MyBroadcastReceiver">  
+        <receiver android:name="com.metasploit.android.stage.MyBroadcastReceiver">  
     		<intent-filter>  
         		<action android:name="android.intent.action.BOOT_COMPLETED" />  
     		</intent-filter>  
 		</receiver>
 		<service
             android:launchMode="singleInstance"
-            android:name=".StageService"
+            android:name="com.metasploit.android.stage.StageService"
             android:enabled="true" >
         </service>
     </application>
