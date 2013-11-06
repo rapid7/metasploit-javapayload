@@ -9,7 +9,7 @@
 		<version>1-SNAPSHOT</version>
 	</parent>
 	<packaging>jar</packaging>
-	<name>JavaPayload Compatibility Checks (Android API 3)</name>
+	<name>JavaPayload Compatibility Checks (Android API 15)</name>
 	<url>http://www.metasploit.com/</url>
 	<dependencies>
 		<dependency>
@@ -73,7 +73,8 @@
 							<signature>
 								<groupId>com.metasploit</groupId>
 								<artifactId>android-api3-scents</artifactId>
-								<version>1.5_r4</version>
+								<version>4.0.1.2</version>
+								<!-- <version>1.5_r4</version> -->
 							</signature>
 						</configuration>
 					</execution>

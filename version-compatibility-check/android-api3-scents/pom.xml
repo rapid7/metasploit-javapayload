@@ -2,7 +2,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.metasploit</groupId>
 	<artifactId>android-api3-scents</artifactId>
-	<version>1.5_r4</version>
+	<!-- <version>1.5_r4</version> -->
+	<version>4.0.1.2</version>
 	<packaging>pom</packaging>
 	<build>
 		<plugins>
