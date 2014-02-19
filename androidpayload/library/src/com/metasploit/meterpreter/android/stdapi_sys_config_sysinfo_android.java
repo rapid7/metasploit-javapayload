@@ -14,10 +14,10 @@ public class stdapi_sys_config_sysinfo_android extends stdapi_sys_config_sysinfo
 	public int execute(Meterpreter meterpreter, TLVPacket request, TLVPacket response) throws Exception {
 		
 		String androidOS = Build.VERSION.RELEASE;
-		int APILevel =  Build.VERSION.SDK_INT;
+		//int APILevel =  Build.VERSION.SDK_INT;
 		
 		response.add(TLVType.TLV_TYPE_COMPUTER_NAME, InetAddress.getLocalHost().getHostName());
-		response.add(TLVType.TLV_TYPE_OS_NAME, "Android " + androidOS + " (API " + Integer.toString(APILevel) + ") - " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " (" + System.getProperty("os.arch") + ")");
+		response.add(TLVType.TLV_TYPE_OS_NAME, "Android " + androidOS + /*" (API " + Integer.toString(APILevel) + ") - "*/ " - " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " (" + System.getProperty("os.arch") + ")");
 		return ERROR_SUCCESS;
 	}
 }

