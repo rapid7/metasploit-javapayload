@@ -27,9 +27,14 @@ public class geolocate_android implements Command {
 		Location location = locationManager
 				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-		response.add(TLV_TYPE_GEO_LAT, Double.toString(location.getLatitude()));
-		response.add(TLV_TYPE_GEO_LONG,
-				Double.toString(location.getLongitude()));
+		if (location != null)
+		{
+			response.add(TLV_TYPE_GEO_LAT, Double.toString(location.getLatitude()));
+			response.add(TLV_TYPE_GEO_LONG,Double.toString(location.getLongitude()));
+		}
+		else
+			return ERROR_FAILURE;
+
 
 		return ERROR_SUCCESS;
 	}

