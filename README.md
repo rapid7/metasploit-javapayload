@@ -1,3 +1,17 @@
+# This repository has been merged into metasploit-payloads
+
+Please note that this repository has been merged into a unified repository for
+meterpreters: https://github.com/rapid7/metasploit-payloads
+
+The history has been preserved, along with prehistory from metasploit-framwork:
+https://github.com/rapid7/metasploit-payloads/tree/master/java
+
+If you have any old PRs, please rebase them on the new repository. See
+https://github.com/rapid7/meterpreter/issues/110 for discussion of why we
+merged these repositories back together.
+
+## Build Instructions
+
 To compile JavaPayload for Metasploit (including Java Meterpreter), you need
 Maven 3.0 or above. Just run
 
@@ -12,8 +26,8 @@ mvn -P deploy package
 ```
 
 to package all the files and copy them into the correct place for Metasploit
-(`../metasploit-framework/data/java`). If you get spurious compilation errors, 
-make sure that there is an exclude rule in your antivirus for the Metasploit 
+(`../metasploit-framework/data/java`). If you get spurious compilation errors,
+make sure that there is an exclude rule in your antivirus for the Metasploit
 directory (or that your antivirus is disabled).
 
 If the path to your metasploit framework repository is not `../metasploit-framework`,
