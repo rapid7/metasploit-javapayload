@@ -1,0 +1,16 @@
+---
+info:
+  title: Metasploit Javapayload
+  description: THIS REPO IS OBSOLETE. USE https://github.com/rapid7/metasploit-payloads
+    INSTEAD
+  x-cortex-git:
+    github:
+      alias: r7org
+      repository: rapid7/metasploit-javapayload
+  x-cortex-tag: metasploit-javapayload
+  x-cortex-type: service
+  x-cortex-domain-parents:
+  - tag: metasploit
+openapi: 3.0.1
+servers:
+- url: "/"
